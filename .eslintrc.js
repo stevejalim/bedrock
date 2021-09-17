@@ -4,7 +4,6 @@ module.exports = {
         'commonjs': true
     },
     extends: [
-        '@mozilla-protocol/eslint-config',
         'plugin:json/recommended'
     ],
     /**
@@ -13,14 +12,19 @@ module.exports = {
     overrides: [
         {
             files: [
+                'media/js/**/*.es6.js',
+            ],
+            env: {
+                'es2017': true
+            }
+        },
+        {
+            files: [
                 'media/js/firefox/welcome/**/*.js',
                 'media/js/firefox/whatsnew/**/*.js'
             ],
             env: {
-                'es6': true
-            },
-            parserOptions: {
-                ecmaVersion: 8
+                'es2017': true
             }
         },
         {
@@ -31,10 +35,7 @@ module.exports = {
             ],
             env: {
                 'node': true,
-                'es6': true
-            },
-            parserOptions: {
-                ecmaVersion: 8
+                'es2017': true
             },
             rules: {
                 'strict': ['error', 'global'],
@@ -43,6 +44,7 @@ module.exports = {
     ],
     globals: {
         'Mozilla': 'writable',
+        'Mzp': 'writable',
         'site': 'writable'
     }
 };
