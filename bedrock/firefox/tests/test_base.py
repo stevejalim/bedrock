@@ -499,7 +499,7 @@ class TestWhatsNew(TestCase):
     @patch.dict(os.environ, SWITCH_FIREFOX_WHATSNEW_93_EXPERIMENT_EN='False')
     def test_fx_93_0_0_en(self, render_mock):
         """Should use whatsnew-fx93-v3-en template for 93.0 in English when switch is OFF"""
-        req = self.rf.get('/firefox/whatsnew/en/')
+        req = self.rf.get('/firefox/whatsnew/')
         req.locale = 'en-US'
         self.view(req, version='93.0')
         template = render_mock.call_args[0][1]
