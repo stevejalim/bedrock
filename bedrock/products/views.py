@@ -122,7 +122,7 @@ def resource_center_landing_view(request):
     ctx = {}
 
     resource_articles = ContentfulEntry.objects.get_entries_by_type(
-        lang=locale,
+        locale=locale,
         content_type=CONTENT_TYPE_PAGE_RESOURCE_CENTRE,
     )
 
@@ -162,7 +162,7 @@ def resource_center_detail_view(request, slug):
             # TODO: scope by category and/or tags in the future
             ContentfulEntry.objects.get_page_by_slug(
                 slug=slug,
-                lang=locale,
+                locale=locale,
                 content_type=CONTENT_TYPE_PAGE_RESOURCE_CENTRE,
             )
         )
