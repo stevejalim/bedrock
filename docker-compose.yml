@@ -30,7 +30,7 @@ services:
     command: python manage.py runserver 0.0.0.0:8080
     env_file: .env
     environment:
-        SITE_MODE: "${SITE_MODE:-Mozorg}"
+      SITE_MODE: "${SITE_MODE:-Mozorg}"
 
     ports:
       - "8080:8080"
@@ -129,7 +129,6 @@ services:
   compile-requirements:
     image: mozmeao/bedrock_build:${GIT_COMMIT:-latest}
     platform: linux/amd64
-    command:
-      ./bin/compile-requirements.sh
+    command: ./bin/compile-requirements.sh
     volumes:
       - .:/app
