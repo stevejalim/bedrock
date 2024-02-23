@@ -7,10 +7,10 @@ from django.conf import settings
 import jinja2
 from babel.core import UnknownLocaleError
 from babel.numbers import format_currency
-from django_jinja import library
 from markupsafe import Markup
 
 from bedrock.base.urlresolvers import reverse
+from bedrock.jinja2 import library
 from lib.l10n_utils.fluent import ftl
 
 FTL_FILES = ["products/vpn/shared"]

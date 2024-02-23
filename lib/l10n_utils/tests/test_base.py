@@ -10,18 +10,19 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 import pytest
-from django_jinja.backend import Jinja2
 from markus.testing import MetricsMock
 
 from bedrock.base.urlresolvers import Prefixer
+from bedrock.jinja2.environment import bedrock_environment
 from lib import l10n_utils
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_files")
 TEMPLATE_DIRS = (os.path.join(ROOT, "templates"),)
-jinja_env = Jinja2.get_default()
+
+jinja_env = bedrock_environment()
 
 
-@patch.object(jinja_env.env.loader, "searchpath", TEMPLATE_DIRS)
+@patch.object(jinja_env.loader, "searchpath", TEMPLATE_DIRS)
 @override_settings(
     ROOT=ROOT,
     DEV=False,

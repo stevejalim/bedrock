@@ -6,11 +6,10 @@ from unittest.mock import patch
 
 from django.test import TestCase, override_settings
 
-from django_jinja.backend import Jinja2
-
 from bedrock.base.templatetags import helpers
+from bedrock.jinja2.environment import bedrock_environment
 
-jinja_env = Jinja2.get_default()
+jinja_env = bedrock_environment()
 SEND_TO_DEVICE_MESSAGE_SETS = {
     "default": {
         "email": {

@@ -6,7 +6,6 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 import jinja2
-from django_jinja import library
 from markupsafe import Markup
 
 from bedrock.base.urlresolvers import reverse
@@ -15,6 +14,7 @@ from bedrock.firefox.firefox_details import (
     firefox_desktop,
     firefox_ios,
 )
+from bedrock.jinja2 import library
 from lib.l10n_utils import get_locale
 
 

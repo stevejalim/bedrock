@@ -669,11 +669,13 @@ WATCHMAN_CHECKS = (
 
 TEMPLATES = [
     {
-        "BACKEND": "django_jinja.jinja2.Jinja2",
-        "APP_DIRS": True,
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "APP_DIRS": False,
+        "NAME": "Bedrock Jinja2",
+        "DIRS": [f"bedrock/{name.split('.')[1]}/templates" for name in INSTALLED_APPS if name.startswith("bedrock.")],
         "OPTIONS": {
-            "match_extension": None,
-            "finalize": lambda x: x if x is not None else "",
+            "environment": "bedrock.jinja2.environment.bedrock_environment",
+            # "finalize": lambda x: x if x is not None else "",  # turn None into an empty string
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
@@ -694,9 +696,9 @@ TEMPLATES = [
                 "jinja2.ext.do",
                 "jinja2.ext.i18n",
                 "jinja2.ext.loopcontrols",
-                "django_jinja.builtins.extensions.CsrfExtension",
-                "django_jinja.builtins.extensions.StaticFilesExtension",
-                "django_jinja.builtins.extensions.DjangoFiltersExtension",
+                # "django_jinja.builtins.extensions.CsrfExtension",
+                # "django_jinja.builtins.extensions.StaticFilesExtension",
+                # "django_jinja.builtins.extensions.DjangoFiltersExtension",
                 "django_jinja_markdown.extensions.MarkdownExtension",
             ],
         },

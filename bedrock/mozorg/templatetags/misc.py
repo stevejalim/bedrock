@@ -18,11 +18,11 @@ from django.utils.encoding import smart_str
 
 import bleach
 import jinja2
-from django_jinja import library
 from markupsafe import Markup
 from product_details import product_details
 
 from bedrock.base.templatetags.helpers import static
+from bedrock.jinja2 import library
 
 ALL_FX_PLATFORMS = ("windows", "linux", "mac", "android", "ios")
 

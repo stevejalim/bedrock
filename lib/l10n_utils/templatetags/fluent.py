@@ -4,9 +4,9 @@
 
 import bleach
 import jinja2
-from django_jinja import library
 from markupsafe import Markup
 
+from bedrock.jinja2 import library
 from lib.l10n_utils import fluent
 
 TAGS_ALLOWED_IN_FLUENT_STRINGS = {

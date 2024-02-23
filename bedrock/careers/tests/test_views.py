@@ -15,6 +15,7 @@ from bedrock.wordpress.models import BlogPost
 
 class PositionTests(TestCase):
     def test_context(self):
+        breakpoint()
         response = self.client.get(reverse("careers.listings"), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response.context["form"]), type(PositionFilterForm()))

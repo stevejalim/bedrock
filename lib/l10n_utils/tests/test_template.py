@@ -8,8 +8,7 @@ from unittest.mock import ANY, patch
 from django.template import TemplateDoesNotExist
 from django.test import RequestFactory, override_settings
 
-from django_jinja.backend import Jinja2
-
+from bedrock.jinja2.environment import bedrock_environment
 from bedrock.mozorg.tests import TestCase
 from lib.l10n_utils import render, render_to_string
 
@@ -17,7 +16,8 @@ ROOT_PATH = Path(__file__).with_name("test_files")
 ROOT = str(ROOT_PATH)
 TEMPLATE_DIRS = [str(ROOT_PATH.joinpath("templates"))]
 L10N_PATH = ROOT_PATH.joinpath("l10n")
-jinja_env = Jinja2.get_default().env
+
+jinja_env = bedrock_environment()
 
 
 class TestNoLocale(TestCase):

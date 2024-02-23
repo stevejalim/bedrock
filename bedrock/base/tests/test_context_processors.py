@@ -3,12 +3,14 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from django.conf import settings
-from django.template.loader import render_to_string
+from django.template.backends.jinja2 import Jinja2 as Jinja2Engine
 from django.test import RequestFactory, TestCase, override_settings
 
-import jinja2
-
 from lib.l10n_utils import translation
+
+# Spin up a Jinja2 template engine with the real settings
+_engine_params = {k: v for k, v in settings.TEMPLATES[0].items() if k != "BACKEND"}
+jinja2engine = Jinja2Engine(params=_engine_params)
 
 
 class TestContext(TestCase):
@@ -17,11 +19,11 @@ class TestContext(TestCase):
         self.factory = RequestFactory()
         translation.activate("en-US")
 
-    def render(self, content, request=None):
+    def render(self, content, request=None, context=None):
         if not request:
             request = self.factory.get("/")
-        tpl = jinja2.Template(content)
-        return render_to_string(tpl, request=request)
+        tpl = jinja2engine.from_string(content)
+        return tpl.render(context=context, request=request)
 
     def test_request(self):
         assert self.render("{{ request.path }}") == "/"

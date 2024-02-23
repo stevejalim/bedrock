@@ -5,10 +5,11 @@
 import re
 
 import pytest
-from django_jinja.backend import Jinja2
 from pyquery import PyQuery as pq
 
-jinja_env = Jinja2.get_default()
+from bedrock.jinja2.environment import bedrock_environment
+
+jinja_env = bedrock_environment()
 
 
 def render(s, context=None):

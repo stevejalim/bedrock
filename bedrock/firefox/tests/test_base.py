@@ -9,19 +9,20 @@ from django.http import HttpResponse
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
-from django_jinja.backend import Jinja2
 from markupsafe import Markup
 from pyquery import PyQuery as pq
 
 from bedrock.base.urlresolvers import reverse
 from bedrock.firefox import views as fx_views
 from bedrock.firefox.firefox_details import FirefoxDesktop
+from bedrock.jinja2.environment import bedrock_environment
 from bedrock.mozorg.tests import TestCase
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "test_data")
 PROD_DETAILS_DIR = os.path.join(TEST_DATA_DIR, "product_details_json")
 GOOD_PLATS = {"Windows": {}, "OS X": {}, "Linux": {}}
-jinja_env = Jinja2.get_default().env
+
+jinja_env = bedrock_environment()
 
 
 class TestInstallerHelp(TestCase):

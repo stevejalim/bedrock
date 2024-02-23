@@ -7,10 +7,13 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 import pytest
-from django_jinja.backend import Jinja2
 
+from bedrock.jinja2.environment import bedrock_environment
 from bedrock.mozorg.tests import TestCase
-from bedrock.products.templatetags.misc import vpn_available_in_country, vpn_supported_locale
+from bedrock.products.templatetags.misc import (
+    vpn_available_in_country,
+    vpn_supported_locale,
+)
 
 TEST_FXA_ENDPOINT = "https://accounts.firefox.com/"
 TEST_VPN_ENDPOINT = "https://vpn.mozilla.org/"
@@ -557,7 +560,7 @@ def test_vpn_blocked_download_country_codes(country_code):
     assert vpn_available_in_country(country_code) is False
 
 
-jinja_env = Jinja2.get_default()
+jinja_env = bedrock_environment()
 
 
 def render(s, context=None):

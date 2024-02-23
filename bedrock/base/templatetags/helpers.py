@@ -11,10 +11,10 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.encoding import smart_str
 
 import jinja2
-from django_jinja import library
 from markupsafe import Markup
 
 from bedrock.base import waffle
+from bedrock.jinja2 import library
 from bedrock.utils import expand_locale_groups
 
 from ..urlresolvers import reverse

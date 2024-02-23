@@ -3,8 +3,9 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import bleach
-from django_jinja import library
 from markupsafe import Markup
+
+from bedrock.jinja2 import library
 
 # based on bleach.sanitizer.ALLOWED_TAGS
 ALLOWED_TAGS = {

@@ -14,11 +14,11 @@ from django.test.utils import override_settings
 
 import pytest
 from bs4 import BeautifulSoup
-from django_jinja.backend import Jinja2
 from markupsafe import Markup
 from pyquery import PyQuery as pq
 
 from bedrock.base.templatetags.helpers import static
+from bedrock.jinja2.environment import bedrock_environment
 from bedrock.mozorg.templatetags import misc
 from bedrock.mozorg.tests import TestCase
 from lib.l10n_utils.fluent import fluent_l10n
@@ -28,7 +28,8 @@ TEST_L10N_MEDIA_PATH = os.path.join(TEST_FILES_ROOT, "media", "%s", "l10n")
 
 TEST_FXA_ENDPOINT = "https://accounts.firefox.com/"
 
-jinja_env = Jinja2.get_default()
+
+jinja_env = bedrock_environment()
 
 
 # Where should this function go?

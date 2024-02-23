@@ -8,9 +8,10 @@ from io import BytesIO
 from django.core.cache import caches
 
 import qrcode as qr
-from django_jinja import library
 from markupsafe import Markup
 from qrcode.image.svg import SvgPathImage
+
+from bedrock.jinja2 import library
 
 cache = caches["qrcode"]
 
