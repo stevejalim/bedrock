@@ -563,4 +563,9 @@ redirectpatterns = (
     redirect(r"^firefox/products/?$", "/products/"),
     # Issue 14255
     redirect(r"^rise25/?$", "/rise25/nominate/"),
+    # redirects that don't need a lang code prefix
+    redirect(r"^projects/calendar/", "https://www.thunderbird.net/calendar/", locale_prefix=False),  # Bug 981063, catch all for old calendar urls.
+    redirect(r"^contact/spaces/paris/$", "mozorg.contact.spaces.spaces-landing", locale_prefix=False),
+    redirect(r"^diversity/$", "mozorg.diversity.2022.index", name="diversity", locale_prefix=False),
+    redirect(r"^webvision/?$", "mozorg.about.webvision.summary", name="webvision", locale_prefix=True, prepend_locale=False),
 )
