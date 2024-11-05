@@ -106,6 +106,40 @@ def locale_selection(request, available_locales=None):
     return response
 
 
+def _get_appropriate_translations(
+    activation_files,
+    context,
+    is_cms_page,
+    l10n,
+    request,
+):
+    translations = []
+
+    if is_cms_page and request._locales_available_via_cms:
+        translations = request._locales_available_via_cms
+    elif "active_locales" in context:
+        translations = context["active_locales"]
+        del context["active_locales"]
+    else:
+        if activation_files:
+            translations = set()
+            for af in activation_files:
+                translations.update(ftl_active_locales(af))
+            translations = sorted(translations)  # `sorted` returns a list.
+        elif l10n:
+            translations = l10n.active_locales
+
+        # if `add_active_locales` is given then add it to the translations for the template
+        if "add_active_locales" in context:
+            translations.extend(context["add_active_locales"])
+            del context["add_active_locales"]
+
+        if not translations:
+            translations = [settings.LANGUAGE_CODE]
+
+    return translations
+
+
 def render(request, template, context=None, ftl_files=None, activation_files=None, **kwargs):
     """
     Same as django's render() shortcut, but with l10n template support.
@@ -153,32 +187,13 @@ def render(request, template, context=None, ftl_files=None, activation_files=Non
     context["template"] = template
     context["template_source_url"] = template_source_url(template)
 
-    # if it's a CMS page, draw the active locales from the Page data.
-    # if `active_locales` is given use it as the full list of active translations
-    translations = []
-
-    if is_cms_page and request._locales_available_via_cms:
-        translations = request._locales_available_via_cms
-    elif "active_locales" in context:
-        translations = context["active_locales"]
-        del context["active_locales"]
-    else:
-        if activation_files:
-            translations = set()
-            for af in activation_files:
-                translations.update(ftl_active_locales(af))
-            translations = sorted(translations)  # `sorted` returns a list.
-        elif l10n:
-            translations = l10n.active_locales
-
-        # if `add_active_locales` is given then add it to the translations for the template
-        if "add_active_locales" in context:
-            translations.extend(context["add_active_locales"])
-            del context["add_active_locales"]
-
-        if not translations:
-            translations = [settings.LANGUAGE_CODE]
-
+    translations = _get_appropriate_translations(
+        activation_files=activation_files,
+        context=context,
+        is_cms_page=is_cms_page,
+        l10n=l10n,
+        request=request,
+    )
     context["translations"] = get_translations_native_names(translations)
 
     # Ensure the path requires a locale prefix.
